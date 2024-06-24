@@ -1,13 +1,13 @@
 {
-  "name": "simple-steam-idler",
+  "name": "$team Hour$",
   "version": "1.0.0",
-  "description": "24/7 Steam ingame time idler (simple version)",
+  "description": "Grind hours",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "https://github.com/Gunthersuper",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "steam-totp": "^2.1.2",
