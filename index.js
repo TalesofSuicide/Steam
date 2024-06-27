@@ -1,36 +1,29 @@
 const steamUser = require('steam-user');
 const steamTotp = require('steam-totp');
-const keep_alive = require('./keep_alive.js')
+const { exec } = require('child_process');
+const keep_alive = require('./keep_alive.js');
 
 var username = process.env.username;
 var password = process.env.password;
 var shared_secret = process.env.shared;
 
-var games = [814380, 1245620, 230410, 553850, 381210];  // Enter here AppIDs of the needed games
+var games = [814380, 1245620, 230410, 553850, 381210];  // Enter the AppIDs of the needed games
+var nonSteamGame = "Playing with Sui the raccoon";  // Non-Steam game name
 var status = 1;  // 1 - online, 7 - invisible
-
 
 user = new steamUser();
 user.logOn({"accountName": username, "password": password, "twoFactorCode": steamTotp.generateAuthCode(shared_secret)});
 user.on('loggedOn', () => {
-	if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
-	user.setPersona(status);               
-	user.gamesPlayed(games);
+    if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
+    user.setPersona(status);               
+    user.gamesPlayed([nonSteamGame, ...games]);  // Show the non-Steam game first, then the other games
+
+    // Launch non-Steam game (if needed)
+    exec('path_to_your_non_steam_game_executable', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error launching non-Steam game: ${error}`);
+            return;
+        }
+        console.log(`Non-Steam game output: ${stdout}`);
+    });
 });
-
-
-// var username2 = process.env.username2;
-// var password2 = process.env.password2;
-// var shared_secret2 = process.env.shared2;
-
-// var games2 = [730, 440, 570, 304930];  // Enter here AppIDs of the needed games
-// var status2 = 1;  // 1 - online, 7 - invisible
-
-
-// user2 = new steamUser();
-// user2.logOn({"accountName": username2, "password": password2, "twoFactorCode": steamTotp.generateAuthCode(shared_secret2)});
-// user2.on('loggedOn', () => {
-// 	if (user2.steamID != null) console.log(user2.steamID + ' - Successfully logged on');
-// 	user2.setPersona(status2);               
-// 	user2.gamesPlayed(games2);
-// });
