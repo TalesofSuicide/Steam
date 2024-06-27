@@ -8,12 +8,12 @@ var shared_secret = process.env.shared;
 
 var games = [814380, 1245620, 230410, 553850, 381210];  // Enter here AppIDs of the needed games
 var status = 1;  // 1 - online, 7 - invisible
-var nonSteamGame = { game_id: '0', game_extra_info: 'Playing with Sui the raccoon' };  // Non-Steam game
+var nonSteamGame = "Playing with Sui the raccoon";  // Non-Steam game
 
 user = new steamUser();
 user.logOn({"accountName": username, "password": password, "twoFactorCode": steamTotp.generateAuthCode(shared_secret)});
 user.on('loggedOn', () => {
     if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
     user.setPersona(status);
-    user.gamesPlayed([nonSteamGame, ...games.map(game_id => ({ game_id }))]);
+    user.gamesPlayed([{ game_id: '0', game_extra_info: nonSteamGame }, ...games]);
 });
