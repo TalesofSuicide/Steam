@@ -16,7 +16,7 @@ user.logOn({"accountName": username, "password": password, "twoFactorCode": stea
 user.on('loggedOn', () => {
     if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
     user.setPersona(status);               
-    user.gamesPlayed([{ game_id: '0', game_extra_info: nonSteamGame }, ...games.map(game_id => ({ game_id }))]);  // Include the non-Steam game without the prefix
+    user.gamesPlayed([nonSteamGame, ...games]);  // Show the non-Steam game first, then the other games
 
     // Optionally launch non-Steam game
     exec('path_to_your_non_steam_game_executable', (error, stdout, stderr) => {
