@@ -1,5 +1,6 @@
 const steamUser = require('steam-user');
 const steamTotp = require('steam-totp');
+const { exec } = require('child_process');
 const keep_alive = require('./keep_alive.js');
 
 var username = process.env.username;
@@ -15,5 +16,14 @@ user.logOn({"accountName": username, "password": password, "twoFactorCode": stea
 user.on('loggedOn', () => {
     if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
     user.setPersona(status);               
-    user.gamesPlayed([{ game_id: '0', game_extra_info: nonSteamGame }, ...games.map(game_id => ({ game_id }))]);  // Include the non-Steam game without the prefix
+    user.gamesPlayed([nonSteamGame, ...games]);  // Show the non-Steam game first, then the other games
+
+    // Launch non-Steam game (if needed)
+    exec('path_to_your_non_steam_game_executable', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error launching non-Steam game: ${error}`);
+            return;
+        }
+        console.log(`Non-Steam game output: ${stdout}`);
+    });
 });
