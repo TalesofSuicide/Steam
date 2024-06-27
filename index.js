@@ -18,7 +18,7 @@ user.on('loggedOn', () => {
     user.setPersona(status);               
     user.gamesPlayed([nonSteamGame, ...games]);  // Show the non-Steam game first, then the other games
 
-    // Optionally launch non-Steam game
+    // Launch non-Steam game (if needed)
     exec('path_to_your_non_steam_game_executable', (error, stdout, stderr) => {
         if (error) {
             console.error(`Error launching non-Steam game: ${error}`);
