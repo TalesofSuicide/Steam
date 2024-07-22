@@ -7,16 +7,24 @@ var username = process.env.username;
 var password = process.env.password;
 var shared_secret = process.env.shared;
 
-var games = [814380, 1245620, 230410, 553850, 381210,72850];  // Enter the AppIDs of the needed games
-var nonSteamGame = "Touching Nick";  // Non-Steam game name
+var games = [814380, 1245620, 230410, 553850, 381210, 72850];  // Enter the AppIDs of the needed games
+var nonSteamGames = ["Mr.Krabs Plays", "A Small Violin"];  // List of non-Steam game names
 var status = 1;  // 1 - online, 7 - invisible
 
 user = new steamUser();
 user.logOn({"accountName": username, "password": password, "twoFactorCode": steamTotp.generateAuthCode(shared_secret)});
 user.on('loggedOn', () => {
     if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
-    user.setPersona(status);               
-    user.gamesPlayed([nonSteamGame, ...games]);  // Show the non-Steam game first, then the other games
+    user.setPersona(status);
+    
+    let currentGameIndex = 0;
+    user.gamesPlayed([nonSteamGames[currentGameIndex], ...games]);  // Show the first non-Steam game initially
+
+    // Function to change the non-Steam game name every 5 seconds
+    setInterval(() => {
+        currentGameIndex = (currentGameIndex + 1) % nonSteamGames.length;
+        user.gamesPlayed([nonSteamGames[currentGameIndex], ...games]);
+    }, 5000);
 
     // Launch non-Steam game (if needed)
     exec('path_to_your_non_steam_game_executable', (error, stdout, stderr) => {
