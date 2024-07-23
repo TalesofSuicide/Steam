@@ -1,5 +1,5 @@
 {
-  "name": "$team Hour$",
+  "name": "Steam Hours",
   "version": "1.0.0",
   "description": "Grind hours",
   "main": "index.js",
