@@ -7,12 +7,12 @@ var username = process.env.username;
 var password = process.env.password;
 var shared_secret = process.env.shared;
 
-var games = [814380, 1245620, 230410, 553850, 381210,72850];  // Enter the AppIDs of the needed games
-var nonSteamGame = "Touching Nick";  // Non-Steam game name
+var games = [814380, 1245620, 230410, 553850, 381210, 72850];  // Enter the AppIDs of the needed games
+var nonSteamGame = "PLaying with Sui the Raccoon";  // Non-Steam game name
 var status = 1;  // 1 - online, 7 - invisible
 
 user = new steamUser();
-user.logOn({"accountName": username, "password": password, "twoFactorCode": steamTotp.generateAuthCode(shared_secret)});
+user.logOn({ "accountName": username, "password": password, "twoFactorCode": steamTotp.generateAuthCode(shared_secret) });
 user.on('loggedOn', () => {
     if (user.steamID != null) console.log(user.steamID + ' - Successfully logged on');
     user.setPersona(status);               
@@ -21,9 +21,9 @@ user.on('loggedOn', () => {
     // Launch non-Steam game (if needed)
     exec('path_to_your_non_steam_game_executable', (error, stdout, stderr) => {
         if (error) {
-            console.error(Error launching non-Steam game: ${error});
+            console.error(`Error launching non-Steam game: ${error}`);
             return;
         }
-        console.log(Non-Steam game output: ${stdout});
+        console.log(`Non-Steam game output: ${stdout}`);
     });
 });
