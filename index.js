@@ -8,7 +8,7 @@ var password = process.env.password;
 var shared_secret = process.env.shared;
 
 var games = [814380, 1245620, 230410, 553850, 381210, 72850];  // Enter the AppIDs of the needed games
-var nonSteamGame = "PLaying with Sui the Raccoon";  // Non-Steam game name
+var nonSteamGame = "Playing with Sui the Raccoon";  // Non-Steam game name
 var status = 1;  // 1 - online, 7 - invisible
 
 user = new steamUser();
