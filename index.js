@@ -8,7 +8,7 @@ var password = process.env.password;
 var shared_secret = process.env.shared;
 
 var games = [814380, 1245620, 230410];  // Enter the AppIDs of the needed games
-//           Sekiro | Elden Ring | Warframe 
+//         Sekiro | Elden Ring | Warframe 
 var nonSteamGame = "Playing with Sui the Raccoon";  // Non-Steam game name
 var status = 1;  // 1 - online, 7 - invisible
 
